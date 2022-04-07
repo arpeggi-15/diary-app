@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const Sidebar = ({
     notes,
     onAddNote,
@@ -5,13 +7,15 @@ const Sidebar = ({
     activeNote,
     setActiveNote,
   }) => {
-    const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
+    // const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
+
+    const sortedNotes = [...notes]
   
     return (
       <div className="app-sidebar">
         <div className="app-sidebar-header">
           <h1>Diary</h1>
-          <button onClick={onAddNote}>Add</button>
+          <button className="AddButton" onClick={onAddNote}>Add</button>
         </div>
         <div className="app-sidebar-notes">
           {sortedNotes.map(({ id, title, body, lastModified }, i) => (
@@ -21,7 +25,7 @@ const Sidebar = ({
             >
               <div className="sidebar-note-title">
                 <strong>{title}</strong>
-                <button onClick={(e) => onDeleteNote(id)}>Delete</button>
+                <button className="DeleteButton" onClick={(e) => onDeleteNote(id)}>Delete</button>
               </div>
   
               <p>{body && body.substr(0, 100) + "..."}</p>
